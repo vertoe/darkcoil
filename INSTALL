@@ -1,9 +1,9 @@
-Building DarkCoin
+Building Darkcoil
 
-See doc/readme-qt.rst for instructions on building DarkCoin-Qt,
+See doc/readme-qt.rst for instructions on building Darkcoil-Qt,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of DarkCoin.
+implementation of Darkcoil.
 
-See doc/build-*.txt for instructions on building darkcoind,
+See doc/build-*.txt for instructions on building darkcoild,
 the intended-for-services, no-graphical-interface, reference
-implementation of DarkCoin.
+implementation of Darkcoil.
