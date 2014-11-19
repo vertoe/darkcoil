@@ -7,7 +7,7 @@ DARKCOIL is a minimal wallet for Darkcoin. It includes a graphical Qt-wallet and
 About
 ------
 
-This is basicly the official Darkcoin client with everything stripped off what Darkcoin makes unique (Darksend, Masternodes, InstantTX, etc.)
+This is basically the official Darkcoin client with everything stripped off what Darkcoin makes unique (Darksend, Masternodes, InstantTX, etc.)
 
 You **don't** want to use this implementation if you:
 
