@@ -5,7 +5,7 @@ Release Process
 
 ###update (commit) version in sources
 
-	darkcoin-qt.pro
+	darkcoil-qt.pro
 	contrib/verifysfbinaries/verify.sh
 	doc/README*
 	share/setup.nsi
@@ -23,11 +23,11 @@ Release Process
 
 ##perform gitian builds
 
- From a directory containing the darkcoin source, gitian-builder and gitian.sigs
-  
+ From a directory containing the darkcoil source, gitian-builder and gitian.sigs
+
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
 	export VERSION=(new version, e.g. 0.9.11.0)
-	pushd ./darkcoin
+	pushd ./darkcoil
 	git checkout v${VERSION}
 	popd
 	pushd ./gitian-builder
@@ -35,7 +35,7 @@ Release Process
 
  Register and download the Apple SDK (see OSX Readme for details)
 	visit https://developer.apple.com/downloads/download.action?path=Developer_Tools/xcode_4.6.3/xcode4630916281a.dmg
- 
+
  Using a Mac, create a tarball for the 10.7 SDK
 	tar -C /Volumes/Xcode/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/ -czf MacOSX10.7.sdk.tar.gz MacOSX10.7.sdk
 
@@ -63,25 +63,25 @@ Release Process
 	wget 'http://llvm.org/releases/3.2/clang+llvm-3.2-x86-linux-ubuntu-12.04.tar.gz' -O clang-llvm-3.2-x86-linux-ubuntu-12.04.tar.gz
 	wget 'https://raw.githubusercontent.com/theuni/osx-cross-depends/master/patches/cdrtools/genisoimage.diff' -O cdrkit-deterministic.patch
 	cd ..
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/linux/gitian-linux-boost.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/linux/gitian-linux-boost.yml
 	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/linux/gitian-linux-deps.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/linux/gitian-linux-deps.yml
 	mv build/out/bitcoin-deps-*.zip inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/linux/gitian-linux-qt.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/linux/gitian-linux-qt.yml
 	mv build/out/qt-*.tar.gz inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/windows/gitian-win-boost.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/windows/gitian-win-boost.yml
 	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/windows/gitian-win-deps.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/windows/gitian-win-deps.yml
 	mv build/out/bitcoin-deps-*.zip inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/windows/gitian-win-qt4.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/windows/gitian-win-qt4.yml
 	mv build/out/qt-*.zip inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/windows/gitian-win-protobuf.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/windows/gitian-win-protobuf.yml
 	mv build/out/protobuf-*.zip inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/osx/gitian-osx-native.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/osx/gitian-osx-native.yml
 	mv build/out/osx-*.tar.gz inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/osx/gitian-osx-depends.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/osx/gitian-osx-depends.yml
 	mv build/out/osx-*.tar.gz inputs/
-	./bin/gbuild ../darkcoin/contrib/gitian-descriptors/osx/gitian-osx-qt.yml
+	./bin/gbuild ../darkcoil/contrib/gitian-descriptors/osx/gitian-osx-qt.yml
 	mv build/out/osx-*.tar.gz inputs/
 
  The expected SHA256 hashes of the intermediate inputs are:
@@ -105,48 +105,48 @@ Release Process
     d6bec84c7ac8c3aa5aa2ea728bc3561f6fdfb4c58bc616ddfca757d6f4b03198  osx-depends-qt-5.2.1-r4.tar.gz
 
 
- Build darkcoind and darkcoin-qt on Linux32, Linux64, Win32 and OSX:
-  
-	./bin/gbuild --commit darkcoin=v${VERSION} ../darkcoin/contrib/gitian-descriptors/linux/gitian-linux-darkcoin.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../darkcoin/contrib/gitian-descriptors/linux/gitian-linux-darkcoin.yml
+ Build darkcoild and darkcoil-qt on Linux32, Linux64, Win32 and OSX:
+
+	./bin/gbuild --commit darkcoil=v${VERSION} ../darkcoil/contrib/gitian-descriptors/linux/gitian-linux-darkcoin.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../darkcoil/contrib/gitian-descriptors/linux/gitian-linux-darkcoin.yml
 	pushd build/out
-	zip -r darkcoin-${VERSION}-linux-gitian.zip *
-	mv darkcoin-${VERSION}-linux-gitian.zip ../../../
+	zip -r darkcoil-${VERSION}-linux-gitian.zip *
+	mv darkcoil-${VERSION}-linux-gitian.zip ../../../
 	popd
-	./bin/gbuild --commit darkcoin=v${VERSION} ../darkcoin/contrib/gitian-descriptors/windows/gitian-win-darkcoin.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../darkcoin/contrib/gitian-descriptors/windows/gitian-win-darkcoin.yml
+	./bin/gbuild --commit darkcoil=v${VERSION} ../darkcoil/contrib/gitian-descriptors/windows/gitian-win-darkcoin.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../darkcoil/contrib/gitian-descriptors/windows/gitian-win-darkcoin.yml
 	pushd build/out
-	zip -r darkcoin-${VERSION}-win-gitian.zip *
-	mv darkcoin-${VERSION}-win-gitian.zip ../../../
+	zip -r darkcoil-${VERSION}-win-gitian.zip *
+	mv darkcoil-${VERSION}-win-gitian.zip ../../../
 	popd
-        ./bin/gbuild --commit darkcoin=v${VERSION} ../darkcoin/contrib/gitian-descriptors/osx/gitian-osx-darkcoin.yml
-        ./bin/gsign --signer $SIGNER --release ${VERSION}-osx --destination ../gitian.sigs/ ../darkcoin/contrib/gitian-descriptors/osx/gitian-osx-darkcoin.yml
+        ./bin/gbuild --commit darkcoil=v${VERSION} ../darkcoil/contrib/gitian-descriptors/osx/gitian-osx-darkcoin.yml
+        ./bin/gsign --signer $SIGNER --release ${VERSION}-osx --destination ../gitian.sigs/ ../darkcoil/contrib/gitian-descriptors/osx/gitian-osx-darkcoin.yml
 	pushd build/out
-	mv DarkCoin-Qt.dmg ../../../
+	mv Darkcoil-Qt.dmg ../../../
 	popd
 	popd
 
   Build output expected:
 
-  1. linux 32-bit and 64-bit binaries + source (darkcoin-${VERSION}-linux-gitian.zip)
-  2. windows 32-bit binaries + installer + source (darkcoin-${VERSION}-win-gitian.zip)
-  3. OSX installer (DarkCoin-Qt.dmg)
+  1. linux 32-bit and 64-bit binaries + source (darkcoil-${VERSION}-linux-gitian.zip)
+  2. windows 32-bit binaries + installer + source (darkcoil-${VERSION}-win-gitian.zip)
+  3. OSX installer (Darkcoil-Qt.dmg)
   4. Gitian signatures (in gitian.sigs/${VERSION}[-win|-osx]/(your gitian key)/
 
 repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 **Linux .tar.gz:**
 
-	unzip darkcoin-${VERSION}-linux-gitian.zip -d darkcoin-${VERSION}-linux
-	tar czvf darkcoin-${VERSION}-linux.tar.gz darkcoin-${VERSION}-linux
-	rm -rf darkcoin-${VERSION}-linux
+	unzip darkcoil-${VERSION}-linux-gitian.zip -d darkcoil-${VERSION}-linux
+	tar czvf darkcoil-${VERSION}-linux.tar.gz darkcoil-${VERSION}-linux
+	rm -rf darkcoil-${VERSION}-linux
 
 **Windows .zip and setup.exe:**
 
-	unzip darkcoin-${VERSION}-win-gitian.zip -d darkcoin-${VERSION}-win
-	mv darkcoin-${VERSION}-win/darkcoin-*-setup.exe .
-	zip -r darkcoin-${VERSION}-win.zip darkcoin-${VERSION}-win
-	rm -rf darkcoin-${VERSION}-win
+	unzip darkcoil-${VERSION}-win-gitian.zip -d darkcoil-${VERSION}-win
+	mv darkcoil-${VERSION}-win/darkcoil-*-setup.exe .
+	zip -r darkcoil-${VERSION}-win.zip darkcoil-${VERSION}-win
+	rm -rf darkcoil-${VERSION}-win
 
 ###Next steps:
 
@@ -158,7 +158,7 @@ repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 * update darkcoin.io version
   make sure all OS download links go to the right versions
-  
+
 * update download sizes on darkcoin.io
 
 * update forum version
@@ -192,4 +192,4 @@ Commit your signature to gitian.sigs:
 
   - Optionally reddit /r/DRKCoin, ...
 
-- Celebrate 
+- Celebrate
