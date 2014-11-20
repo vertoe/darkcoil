@@ -344,6 +344,7 @@ SOURCES += src/qt/test/test_main.cpp \
            src/qt/qrcodedialog.cpp
 HEADERS += src/qt/test/uritests.h \
            src/qt/qrcodedialog.h
+FORMS += src/qt/forms/qrcodedialog.ui
 DEPENDPATH += src/qt/test
 QT += testlib
 DEFINES += USE_QRCODE
