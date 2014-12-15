@@ -7,13 +7,14 @@ Staging tree for Darkcoin-0.12.0.
 COMPLETED:
 
 - Updated strings in config, path and pid (~/.darkcoin)
+- Renamed binaries (darkcoind, darkcoin-qt, etc.)
+- Change version numbers, protocol version, wallet version (compatible with DRK network)
 
 
 MANDATORY:
 ----------
 
 - Update Ports for communication and RPC (port=9999; rpcport=9998)
-- Change version numbers, protocol version, wallet version (compatible with DRK network)
 - Add darkcoin seednodes
 - Update address versions (Public keys, Multisig keys)
 - Change genesisblockhash and timestamp
