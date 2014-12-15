@@ -4,10 +4,14 @@ Porting Bitcoin 0.10 to Darkcoin
 Staging tree for Darkcoin-0.12.0.
 
 
+COMPLETED:
+
+- Updated strings in config, path and pid (~/.darkcoin)
+
+
 MANDATORY:
 ----------
 
-- Update strings in config, path and pid (~/.darkcoin)
 - Update Ports for communication and RPC (port=9999; rpcport=9998)
 - Change version numbers, protocol version, wallet version (compatible with DRK network)
 - Add darkcoin seednodes
@@ -33,5 +37,6 @@ ADDITIONAL:
 - Include trusted public key for message signing
 - Masternodes, Enforcement, Darksend, InstantX, Atomic Transfers, ...
 - Remove Bitcoin dead weight (SHA256, hardcoded keys, seednodes, ...)
+- Update bootstrap.md
 - Update strings
 - Write tests

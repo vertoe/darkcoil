@@ -1,0 +1,22 @@
+[Unit]
+Description=Darkcoin's distributed currency daemon
+After=network.target
+
+[Service]
+User=darkcoin
+Group=darkcoin
+
+Type=forking
+PIDFile=/var/lib/darkcoind/darkcoind.pid
+ExecStart=/usr/bin/darkcoind -daemon -pid=/var/lib/darkcoind/darkcoind.pid \
+-conf=/etc/darkcoin/darkcoin.conf -datadir=/var/lib/darkcoind -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
