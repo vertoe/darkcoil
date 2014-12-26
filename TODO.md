@@ -8,7 +8,7 @@ COMPLETED:
 
 - Updated strings in config, path and pid (~/.darkcoin)
 - Renamed binaries (darkcoind, darkcoin-qt, etc.)
-- Change version numbers, protocol version, wallet version (compatible with DRK network)
+- Changed version numbers, protocol version, wallet version (compatible with DRK network)
 
 
 MANDATORY:
