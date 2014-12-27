@@ -9,12 +9,12 @@ COMPLETED:
 - Updated strings in config, path and pid (~/.darkcoin)
 - Renamed binaries (darkcoind, darkcoin-qt, etc.)
 - Changed version numbers, protocol version, wallet version (compatible with DRK network)
+- Updated Ports for communication and RPC (port=9999; rpcport=9998)
 
 
 MANDATORY:
 ----------
 
-- Update Ports for communication and RPC (port=9999; rpcport=9998)
 - Add darkcoin seednodes
 - Update address versions (Public keys, Multisig keys)
 - Change genesisblockhash and timestamp

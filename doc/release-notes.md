@@ -21,7 +21,7 @@ installer (on Windows) or just copy over /Applications/Bitcoin-Qt (on Mac) or
 bitcoind/bitcoin-qt (on Linux).
 
 If you are upgrading from version 0.7.2 or earlier, the first time you run
-0.10.0 your blockchain files will be re-indexed, which will take anywhere from 
+0.10.0 your blockchain files will be re-indexed, which will take anywhere from
 30 minutes to several hours, depending on the speed of your machine.
 
 Downgrading warning
@@ -141,10 +141,10 @@ unauthenticated access to public node data.
 It is served on the same port as RPC, but does not need a password, and uses
 plain HTTP instead of JSON-RPC.
 
-Assuming a local RPC server running on port 8332, it is possible to request:
-- Blocks: http://localhost:8332/rest/block/*HASH*.*EXT*
-- Blocks without transactions: http://localhost:8332/block/notxdetails/*HASH*.*EXT*
-- Transactions (requires `-txindex`): http://localhost:8332/tx/*HASH*.*EXT*
+Assuming a local RPC server running on port 9998, it is possible to request:
+- Blocks: http://localhost:9998/rest/block/*HASH*.*EXT*
+- Blocks without transactions: http://localhost:9998/block/notxdetails/*HASH*.*EXT*
+- Transactions (requires `-txindex`): http://localhost:9998/tx/*HASH*.*EXT*
 
 In every case, *EXT* can be `bin` (for raw binary data), `hex` (for hex-encoded binary) or `json`.
 
@@ -231,7 +231,7 @@ Its interface is defined in the C header [bitcoinconsensus.h](https://github.com
 
 In its initial version the API includes two functions:
 
-- `bitcoinconsensus_verify_script` verifies a script. It returns whether the indicated input of the provided serialized transaction 
+- `bitcoinconsensus_verify_script` verifies a script. It returns whether the indicated input of the provided serialized transaction
 correctly spends the passed scriptPubKey under additional constraints indicated by flags
 - `bitcoinconsensus_version` returns the API version, currently at an experimental `0`
 
@@ -434,7 +434,7 @@ Build system:
 - `a7d1f03` build: fix dynamic boost check when --with-boost= is used
 - `d5fd094` build: fix qt test build when libprotobuf is in a non-standard path
 - `2cf5f16` Add libbitcoinconsensus library
-- `914868a` build: add a deterministic dmg signer 
+- `914868a` build: add a deterministic dmg signer
 
 Wallet:
 - `b33d1f5` Use fee/priority estimates in wallet CreateTransaction
