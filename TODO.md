@@ -11,12 +11,12 @@ COMPLETED:
 - Changed version numbers, protocol version, wallet version (compatible with DRK network)
 - Updated Ports for communication and RPC (port=9999; rpcport=9998)
 - Updated address versions (Public keys, Multisig keys, Coin Type)
+- Added darkcoin seednodes
 
 
 MANDATORY:
 ----------
 
-- Add darkcoin seednodes
 - Change genesisblockhash and timestamp
 - Review and update checkpoints
 - Adjust algorithm (X11)

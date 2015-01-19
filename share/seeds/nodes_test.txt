@@ -1,5 +1,14 @@
 # List of fixed seed nodes for testnet
 
+# IPv4 nodes
+5.45.101.232    # darkcoin.io
+94.23.248.61    # darkcoin.fr
+104.28.12.47    # masternode.io
+188.40.57.201   # descartes.darkco.in
+78.46.66.139    # euclid.darkco.in
+
+#IPv6 nodes
+[2a01:4f8:100:32ee::2] # ptolemy.darko.in
+
 # Onion nodes
-thfsmmn2jbitcoin.onion
-it2pj4f7657g3rhi.onion
+ # NONE
