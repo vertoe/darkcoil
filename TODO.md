@@ -13,12 +13,12 @@ COMPLETED:
 - Updated address versions (Public keys, Multisig keys, Coin Type)
 - Added darkcoin seednodes
 - Changed genesisblockhash and timestamp
+- Reviewed and updated checkpoints
 
 
 MANDATORY:
 ----------
 
-- Review and update checkpoints
 - Adjust algorithm (X11)
 - Update subsidity function (Block value)
 - Adjust wallet keypool size to 1000 and add loading indicator on fresh wallet load
