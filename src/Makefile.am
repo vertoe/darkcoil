@@ -37,7 +37,7 @@ $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
 
 # Make is not made aware of per-object dependencies to avoid limiting building parallelization
 # But to build the less dependent modules first, we manually select their order here:
-noinst_LIBRARIES = \
+EXTRA_LIBRARIES = \
   crypto/libdarkcoin_crypto.a \
   libdarkcoin_util.a \
   libdarkcoin_common.a \
@@ -46,7 +46,7 @@ noinst_LIBRARIES = \
   libdarkcoin_cli.a
 if ENABLE_WALLET
 BITCOIN_INCLUDES += $(BDB_CPPFLAGS)
-noinst_LIBRARIES += libdarkcoin_wallet.a
+EXTRA_LIBRARIES += libdarkcoin_wallet.a
 endif
 
 if BUILD_BITCOIN_LIBS

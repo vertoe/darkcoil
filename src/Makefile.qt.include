@@ -1,5 +1,5 @@
 bin_PROGRAMS += qt/darkcoin-qt
-noinst_LIBRARIES += qt/libdarkcoinqt.a
+EXTRA_LIBRARIES += qt/libdarkcoinqt.a
 
 # darkcoin qt core #
 QT_TS = \
