@@ -12,12 +12,12 @@ COMPLETED:
 - Updated Ports for communication and RPC (port=9999; rpcport=9998)
 - Updated address versions (Public keys, Multisig keys, Coin Type)
 - Added darkcoin seednodes
+- Changed genesisblockhash and timestamp
 
 
 MANDATORY:
 ----------
 
-- Change genesisblockhash and timestamp
 - Review and update checkpoints
 - Adjust algorithm (X11)
 - Update subsidity function (Block value)

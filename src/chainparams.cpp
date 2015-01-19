@@ -109,20 +109,20 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0xf9;
-        pchMessageStart[1] = 0xbe;
-        pchMessageStart[2] = 0xb4;
-        pchMessageStart[3] = 0xd9;
-        vAlertPubKey = ParseHex("04fc9702847840aaf195de8442ebecedf5b095cdbb9bc716bda9110971b28a49e0ead8564ff0db22209e0374782c093bb899692d524e9d6a6956e7c5ecbcd68284");
+        pchMessageStart[0] = 0xbf;
+        pchMessageStart[1] = 0x0c;
+        pchMessageStart[2] = 0x6b;
+        pchMessageStart[3] = 0xbd;
+        vAlertPubKey = ParseHex("048240a8748a80a286b270ba126705ced4f2ce5a7847b3610ea3c06513150dade2a8512ed5ea86320824683fc0818f0ac019214973e677acd1244f6d0571fc5103");
         nDefaultPort = 9999;
-        bnProofOfWorkLimit = ~uint256(0) >> 32;
+        bnProofOfWorkLimit = ~uint256(0) >> 20;  // Darkcoin starting difficulty is 1 / 2^12
         nSubsidyHalvingInterval = 210000;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        nTargetSpacing = 10 * 60;
+        nTargetTimespan = 24 * 60 * 60; // Darkcoin: 1.0 days
+        nTargetSpacing  = 2.5 * 60;     // Darkcoin: 2.5 minutes
 
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
@@ -134,24 +134,24 @@ public:
          *     CTxOut(nValue=50.00000000, scriptPubKey=0x5F1DF16B2B704C8A578D0B)
          *   vMerkleTree: 4a5e1e
          */
-        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        const char* pszTimestamp = "Wired 09/Jan/2014 The Grand Experiment Goes Live: Overstock.com Is Now Accepting Bitcoins";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 50 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
-        genesis.nVersion = 1;
-        genesis.nTime    = 1231006505;
-        genesis.nBits    = 0x1d00ffff;
-        genesis.nNonce   = 2083236893;
+        genesis.nVersion =          1;
+        genesis.nTime    = 1390095618;
+        genesis.nBits    = 0x1e0ffff0;
+        genesis.nNonce   =   28917698;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
-        assert(genesis.hashMerkleRoot == uint256("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+        assert(hashGenesisBlock == uint256("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
+        assert(genesis.hashMerkleRoot == uint256("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
         vSeeds.push_back(CDNSSeedData("darkcoin.io", "dnsseed.darkcoin.io"));
         vSeeds.push_back(CDNSSeedData("darkcoin.qa", "dnsseed.darkcoin.qa"));
@@ -191,24 +191,25 @@ public:
     CTestNetParams() {
         networkID = CBaseChainParams::TESTNET;
         strNetworkID = "test";
-        pchMessageStart[0] = 0x0b;
-        pchMessageStart[1] = 0x11;
-        pchMessageStart[2] = 0x09;
-        pchMessageStart[3] = 0x07;
-        vAlertPubKey = ParseHex("04302390343f91cc401d56d68b123028bf52e5fca1939df127f63c6467cdf9c8e2c14b61104cf817d0b780da337893ecc4aaff1309e536162dabbdb45200ca2b0a");
+
+        pchMessageStart[0] = 0xce;
+        pchMessageStart[1] = 0xe2;
+        pchMessageStart[2] = 0xca;
+        pchMessageStart[3] = 0xff;
+        vAlertPubKey = ParseHex("04517d8a699cb43d3938d7b24faaff7cda448ca4ea267723ba614784de661949bf632d6304316b244646dea079735b9a6fc4af804efb4752075b9fe2245e14e412");
         nDefaultPort = 19999;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
         nMinerThreads = 0;
-        nTargetTimespan = 14 * 24 * 60 * 60; //! two weeks
-        nTargetSpacing = 10 * 60;
+        nTargetTimespan = 24 * 60 * 60; // Darkcoin: 1.0 days
+        nTargetSpacing  = 2.5 * 60;     // Darkcoin: 2.5 minutes
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1296688602;
-        genesis.nNonce = 414098458;
+        genesis.nTime = 1390666206;
+        genesis.nNonce = 3861367235;
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
+        assert(hashGenesisBlock == uint256("0x00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -248,24 +249,24 @@ public:
     CRegTestParams() {
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
-        pchMessageStart[0] = 0xfa;
-        pchMessageStart[1] = 0xbf;
-        pchMessageStart[2] = 0xb5;
-        pchMessageStart[3] = 0xda;
+        pchMessageStart[0] = 0xfc;
+        pchMessageStart[1] = 0xc1;
+        pchMessageStart[2] = 0xb7;
+        pchMessageStart[3] = 0xdc;
         nSubsidyHalvingInterval = 150;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
-        nTargetTimespan = 14 * 24 * 60 * 60; //! two weeks
-        nTargetSpacing = 10 * 60;
+        nTargetTimespan = 24 * 60 * 60; // Darkcoin: 1.0 days
+        nTargetSpacing  = 2.5 * 60;     // Darkcoin: 2.5 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1296688602;
+        genesis.nTime = 1417713337;
         genesis.nBits = 0x207fffff;
-        genesis.nNonce = 2;
+        genesis.nNonce = 1096447;
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 19994;
-        assert(hashGenesisBlock == uint256("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
+        assert(hashGenesisBlock == uint256("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e"));
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
