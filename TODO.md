@@ -10,13 +10,13 @@ COMPLETED:
 - Renamed binaries (darkcoind, darkcoin-qt, etc.)
 - Changed version numbers, protocol version, wallet version (compatible with DRK network)
 - Updated Ports for communication and RPC (port=9999; rpcport=9998)
+- Updated address versions (Public keys, Multisig keys, Coin Type)
 
 
 MANDATORY:
 ----------
 
 - Add darkcoin seednodes
-- Update address versions (Public keys, Multisig keys)
 - Change genesisblockhash and timestamp
 - Review and update checkpoints
 - Adjust algorithm (X11)
@@ -25,11 +25,9 @@ MANDATORY:
 - Adjust difficulty and blockvalue (KGW, DGW based on blockheight)
 - Define regression test genesis block
 - Update wallet layout and branding
-- Reset testnet (v4) with new genesis and address version (start with x)
-- BIP0032 addresses xpub and xpriv start with x (unchanged by design)
 - Change Darkcoin units to DRK and add duffs
-- Fixe internal walletminer
-- Check rpcminer
+- Fix internal walletminer
+- Adjust deploy scripts (mac, linux)
 
 
 ADDITIONAL:
