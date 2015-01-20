@@ -41,7 +41,7 @@ information or see http://opensource.org/licenses/MIT.
 * Copyright (c) 2009-2013 Bitcoin Developers
 * Copyright (c) 2011-2013 Litecoin Developers
 * Copyright (c) 2013-2014 Darkcoin Developers
-* Copyright (c) 2014 DARKCOIL Project (by vertoe)
+* Copyright (c) 2014-2015 DARKCOIL Project (by vertoe)
 
 The Darkcoin artwork and logo is used in terms of the CC-BY-SA 4.0 license,
 attribution goes to the Darkcoin Foundation see following link for details

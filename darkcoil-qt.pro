@@ -1,10 +1,9 @@
 TEMPLATE = app
 TARGET = darkcoil-qt
 macx:TARGET = "Darkcoil-Qt"
-VERSION = 0.9.0.0
+VERSION = 0.9.18.10
 INCLUDEPATH += src src/json src/qt
-QT += core gui network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += network
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
