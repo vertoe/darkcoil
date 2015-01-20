@@ -310,7 +310,7 @@ bool AddOrphanTx(const CTransaction& tx)
     if (mapOrphanTransactions.count(hash))
         return false;
 
-    // Ignore big transactions, to avoid af
+    // Ignore big transactions, to avoid a
     // send-big-orphans memory exhaustion attack. If a peer has a legitimate
     // large transaction with a missing parent then we assume
     // it will rebroadcast it later, after the parent transaction(s)
