@@ -123,6 +123,18 @@ BITCOIN_CORE_H = \
   serialize.h \
   streams.h \
   sync.h \
+  sph_blake.h \
+  sph_bmw.h \
+  sph_cubehash.h \
+  sph_echo.h \
+  sph_groestl.h \
+  sph_jh.h \
+  sph_keccak.h \
+  sph_luffa.h \
+  sph_shavite.h \
+  sph_simd.h \
+  sph_skein.h \
+  sph_types.h \
   threadsafety.h \
   timedata.h \
   tinyformat.h \
@@ -185,6 +197,18 @@ libdarkcoin_server_a_SOURCES = \
   timedata.cpp \
   txdb.cpp \
   txmempool.cpp \
+  aes_helper.c \
+  luffa.c \
+  groestl.c \
+  jh.c \
+  echo.c \
+  shavite.c \
+  keccak.c \
+  skein.c \
+  bmw.c \
+  simd.c \
+  cubehash.c \
+  blake.c \
   $(JSON_H) \
   $(BITCOIN_CORE_H)
 

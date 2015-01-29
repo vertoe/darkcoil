@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2014-2015 The Darkcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -249,6 +250,23 @@ template void base_uint<256>::SetHex(const char*);
 template void base_uint<256>::SetHex(const std::string&);
 template unsigned int base_uint<256>::bits() const;
 
+// Explicit instantiations for base_uint<512>
+template base_uint<512>::base_uint(const std::string&);
+template base_uint<512>::base_uint(const std::vector<unsigned char>&);
+template base_uint<512>& base_uint<512>::operator<<=(unsigned int);
+template base_uint<512>& base_uint<512>::operator>>=(unsigned int);
+template base_uint<512>& base_uint<512>::operator*=(uint32_t b32);
+template base_uint<512>& base_uint<512>::operator*=(const base_uint<512>& b);
+template base_uint<512>& base_uint<512>::operator/=(const base_uint<512>& b);
+template int base_uint<512>::CompareTo(const base_uint<512>&) const;
+template bool base_uint<512>::EqualTo(uint64_t) const;
+template double base_uint<512>::getdouble() const;
+template std::string base_uint<512>::GetHex() const;
+template std::string base_uint<512>::ToString() const;
+template void base_uint<512>::SetHex(const char*);
+template void base_uint<512>::SetHex(const std::string&);
+template unsigned int base_uint<512>::bits() const;
+
 // This implementation directly uses shifts instead of going
 // through an intermediate MPI representation.
 uint256& uint256::SetCompact(uint32_t nCompact, bool* pfNegative, bool* pfOverflow)
@@ -289,6 +307,51 @@ uint32_t uint256::GetCompact(bool fNegative) const
     }
     assert((nCompact & ~0x007fffff) == 0);
     assert(nSize < 256);
+    nCompact |= nSize << 24;
+    nCompact |= (fNegative && (nCompact & 0x007fffff) ? 0x00800000 : 0);
+    return nCompact;
+}
+
+// This implementation directly uses shifts instead of going
+// through an intermediate MPI representation.
+uint512& uint512::SetCompact(uint32_t nCompact, bool* pfNegative, bool* pfOverflow)
+{
+    int nSize = nCompact >> 24;
+    uint32_t nWord = nCompact & 0x007fffff;
+    if (nSize <= 3) {
+        nWord >>= 8 * (3 - nSize);
+        *this = nWord;
+    } else {
+        *this = nWord;
+        *this <<= 8 * (nSize - 3);
+    }
+    if (pfNegative)
+        *pfNegative = nWord != 0 && (nCompact & 0x00800000) != 0;
+    if (pfOverflow)
+        *pfOverflow = nWord != 0 && ((nSize > 34) ||
+                                     (nWord > 0xff && nSize > 33) ||
+                                     (nWord > 0xffff && nSize > 32));
+    return *this;
+}
+
+uint32_t uint512::GetCompact(bool fNegative) const
+{
+    int nSize = (bits() + 7) / 8;
+    uint32_t nCompact = 0;
+    if (nSize <= 3) {
+        nCompact = GetLow64() << 8 * (3 - nSize);
+    } else {
+        uint512 bn = *this >> 8 * (nSize - 3);
+        nCompact = bn.GetLow64();
+    }
+    // The 0x00800000 bit denotes the sign.
+    // Thus, if it is already set, divide the mantissa by 512 and increase the exponent.
+    if (nCompact & 0x00800000) {
+        nCompact >>= 8;
+        nSize++;
+    }
+    assert((nCompact & ~0x007fffff) == 0);
+    assert(nSize < 512);
     nCompact |= nSize << 24;
     nCompact |= (fNegative && (nCompact & 0x007fffff) ? 0x00800000 : 0);
     return nCompact;
@@ -354,4 +417,34 @@ uint64_t uint256::GetHash(const uint256& salt) const
     HashFinal(a, b, c);
 
     return ((((uint64_t)b) << 32) | c);
+}
+
+uint64_t uint512::GetHash(const uint512& salt) const
+{
+    uint32_t a, b, c;
+    a = b = c = 0xdeadbeef + (WIDTH << 2);
+
+    a += pn[0] ^ salt.pn[0];
+    b += pn[1] ^ salt.pn[1];
+    c += pn[2] ^ salt.pn[2];
+    HashMix(a, b, c);
+    a += pn[3] ^ salt.pn[3];
+    b += pn[4] ^ salt.pn[4];
+    c += pn[5] ^ salt.pn[5];
+    HashMix(a, b, c);
+    a += pn[6] ^ salt.pn[6];
+    b += pn[7] ^ salt.pn[7];
+    HashFinal(a, b, c);
+
+    return ((((uint64_t)b) << 32) | c);
+}
+
+uint256 uint512::trim256() const
+{
+    //uint256 ret;
+    base_uint<256> ret;
+    for (unsigned int i = 0; i < WIDTH; i++){
+        ret.pn[i] = pn[i];
+    }
+    return ret;
 }

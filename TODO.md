@@ -13,17 +13,17 @@ COMPLETED:
 - Updated address versions (Public keys, Multisig keys, Coin Type)
 - Added darkcoin seednodes
 - Changed genesisblockhash and timestamp
+- Defined regression test genesis block
 - Reviewed and updated checkpoints
+- Adjusted algorithm (X11)
 
 
 MANDATORY:
 ----------
 
-- Adjust algorithm (X11)
 - Update subsidity function (Block value)
 - Adjust wallet keypool size to 1000 and add loading indicator on fresh wallet load
 - Adjust difficulty and blockvalue (KGW, DGW based on blockheight)
-- Define regression test genesis block
 - Update wallet layout and branding
 - Change Darkcoin units to DRK and add duffs
 - Fix internal walletminer
@@ -38,4 +38,4 @@ ADDITIONAL:
 - Remove Bitcoin dead weight (SHA256, hardcoded keys, seednodes, ...)
 - Update bootstrap.md
 - Update strings
-- Write tests
+- Fix unit tests
