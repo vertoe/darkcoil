@@ -197,18 +197,6 @@ libdarkcoin_server_a_SOURCES = \
   timedata.cpp \
   txdb.cpp \
   txmempool.cpp \
-  aes_helper.c \
-  luffa.c \
-  groestl.c \
-  jh.c \
-  echo.c \
-  shavite.c \
-  keccak.c \
-  skein.c \
-  bmw.c \
-  simd.c \
-  cubehash.c \
-  blake.c \
   $(JSON_H) \
   $(BITCOIN_CORE_H)
 
@@ -278,6 +266,18 @@ libdarkcoin_common_a_SOURCES = \
   script/sign.cpp \
   script/standard.cpp \
   script/script_error.cpp \
+  aes_helper.c \
+  luffa.c \
+  groestl.c \
+  jh.c \
+  echo.c \
+  shavite.c \
+  keccak.c \
+  skein.c \
+  bmw.c \
+  simd.c \
+  cubehash.c \
+  blake.c \
   $(BITCOIN_CORE_H)
 
 # util: shared between all executables.
