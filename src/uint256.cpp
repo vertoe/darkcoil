@@ -441,8 +441,7 @@ uint64_t uint512::GetHash(const uint512& salt) const
 
 uint256 uint512::trim256() const
 {
-    //uint256 ret;
-    base_uint<256> ret;
+    uint256 ret;
     for (unsigned int i = 0; i < WIDTH; i++){
         ret.pn[i] = pn[i];
     }
