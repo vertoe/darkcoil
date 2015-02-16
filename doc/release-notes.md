@@ -79,7 +79,8 @@ This release automatically estimates how high a transaction fee (or how
 high a priority) transactions require to be confirmed quickly. The default
 settings will create transactions that confirm quickly; see the new
 'txconfirmtarget' setting to control the tradeoff between fees and
-confirmation times.
+confirmation times. Fees are added by default unless the 'sendfreetransactions' 
+setting is enabled.
 
 Prior releases used hard-coded fees (and priorities), and would
 sometimes create transactions that took a very long time to confirm.
@@ -88,10 +89,12 @@ Statistics used to estimate fees and priorities are saved in the
 data directory in the `fee_estimates.dat` file just before
 program shutdown, and are read in at startup.
 
-New command line options for fee estimation:
+New command line options for transaction fee changes:
 - `-txconfirmtarget=n` : create transactions that have enough fees (or priority)
 so they are likely to begin confirmation within n blocks (default: 1). This setting
 is over-ridden by the -paytxfee option.
+- `-sendfreetransactions` : Send transactions as zero-fee transactions if possible 
+(default: 0)
 
 New RPC commands for fee estimation:
 - `estimatefee nblocks` : Returns approximate fee-per-1,000-bytes needed for
@@ -272,6 +275,60 @@ server round-trip to execute.
 
 Other utilities "bitcoin-key" and "bitcoin-script" have been proposed, making
 key and script operations easily accessible via command line.
+
+Mining and relay policy enhancements
+------------------------------------
+
+Bitcoin Core's block templates are now for version 3 blocks only, and any mining
+software relying on its `getblocktemplate` must be updated in parallel to use
+libblkmaker either version 0.4.2 or any version from 0.5.1 onward.
+If you are solo mining, this will affect you the moment you upgrade Bitcoin
+Core, which must be done prior to BIP66 achieving its 951/1001 status.
+If you are mining with the stratum mining protocol: this does not affect you.
+If you are mining with the getblocktemplate protocol to a pool: this will affect
+you at the pool operator's discretion, which must be no later than BIP66
+achieving its 951/1001 status.
+
+The `prioritisetransaction` RPC method has been added to enable miners to
+manipulate the priority of transactions on an individual basis.
+
+Bitcoin Core now supports BIP 22 long polling, so mining software can be
+notified immediately of new templates rather than having to poll periodically.
+
+Support for BIP 23 block proposals is now available in Bitcoin Core's
+`getblocktemplate` method. This enables miners to check the basic validity of
+their next block before expending work on it, reducing risks of accidental
+hardforks or mining invalid blocks.
+
+Two new options to control mining policy:
+- `-datacarrier=0/1` : Relay and mine "data carrier" (OP_RETURN) transactions
+if this is 1.
+- `-datacarriersize=n` : Maximum size, in bytes, we consider acceptable for
+"data carrier" outputs.
+
+The relay policy has changed to more properly implement the desired behavior of not 
+relaying free (or very low fee) transactions unless they have a priority above the 
+AllowFreeThreshold(), in which case they are relayed subject to the rate limiter.
+
+BIP 66: strict DER encoding for signatures
+------------------------------------------
+
+Bitcoin Core 0.10 implements BIP 66, which introduces block version 3, and a new
+consensus rule, which prohibits non-DER signatures. Such transactions have been
+non-standard since Bitcoin v0.8.0 (released in February 2013), but were
+technically still permitted inside blocks.
+
+This change breaks the dependency on OpenSSL's signature parsing, and is
+required if implementations would want to remove all of OpenSSL from the
+consensus code.
+
+The same miner-voting mechanism as in BIP 34 is used: when 751 out of a
+sequence of 1001 blocks have version number 3 or higher, the new consensus
+rule becomes active for those blocks. When 951 out of a sequence of 1001
+blocks have version number 3 or higher, it becomes mandatory for all blocks.
+
+Backward compatibility with current mining software is NOT provided, thus miners
+should read the first paragraph of "Mining and relay policy enhancements" above.
 
 0.10.0 Change log
 =================
